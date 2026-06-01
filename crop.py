@@ -251,7 +251,7 @@ with col_upload:
     # Let user choose input method
         input_method = st.radio(
             "How do you want to provide the leaf image?",
-                ["📁 Upload from device", "📷 Take a photo now"],
+            ["📁 Upload from device", "📷 Take a photo now"],
             horizontal=True)
 
         if input_method == "📁 Upload from device":
