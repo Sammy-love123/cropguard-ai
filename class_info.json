@@ -1,0 +1,25 @@
+{
+  "class_names": [
+    "Cassava bacterial blight",
+    "Cassava green mite",
+    "Cassava healthy",
+    "Cassava mosaic",
+    "Maize fall armyworm",
+    "Maize grasshoper",
+    "Maize healthy",
+    "Maize leaf beetle",
+    "Maize leaf blight",
+    "Maize leaf spot",
+    "Maize streak virus",
+    "Yam Anthracnose",
+    "Yam Healthy",
+    "Yam Mosiac virus",
+    "yam leaf spot"
+  ],
+  "num_classes": 15,
+  "img_size": [
+    224,
+    224
+  ],
+  "best_model": "VGG16"
+}
