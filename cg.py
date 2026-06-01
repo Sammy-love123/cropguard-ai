@@ -1,7 +1,7 @@
 # ============================================================
 # CROP DISEASE PREDICTION SYSTEM — MOBILE-STYLE STREAMLIT APP
 # Bowen University, Iwo
-# Student: Ojugbeli Ogechi Marvellous
+# Student: Ojugbeli Ogechi Esther
 # Supervisor: Miss Busolami Oluwadamilare
 #
 # HOW TO RUN:
@@ -637,7 +637,7 @@ if st.session_state.page == 'splash':
     st.markdown("""
     <div style="text-align:center; margin-top:15px; font-size:11px; color:#aaa;">
         Bowen University, Iwo &nbsp;|&nbsp; Dept. of Computer Science<br>
-        <i>Ojugbeli Ogechi Marvellous</i>
+        <i>Ojugbeli Ogechi Esther </i>
     </div>
     </div>
     """, unsafe_allow_html=True)
