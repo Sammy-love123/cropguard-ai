@@ -144,6 +144,20 @@ h3 {
 [data-testid="stRadio"] span {
     color: black !important;
 }
+
+            /* Fix deprecation warning text color */
+.stAlert p {
+    color: black !important;
+}
+.stAlert {
+    color: black !important;
+}
+[data-testid="stAlert"] {
+    color: black !important;
+}
+[data-testid="stAlert"] p {
+    color: black !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -264,7 +278,7 @@ with col_upload:
 
 if uploaded:
         img = Image.open(uploaded)
-        st.image(img, use_column_width=True, caption="Uploaded leaf image")
+        st.image(img, use_container_width=True, caption="Uploaded leaf image")
         st.markdown(f"<div class='card' style='padding:15px; color:black;'><small>📐 Size: {img.size[0]}×{img.size[1]}px<br>🔄 Resized to: {IMG_SIZE[0]}×{IMG_SIZE[1]}px<br>📁 {uploaded.name}</small></div>", unsafe_allow_html=True)
 else:
         st.markdown("<div style='background:white;border:2.5px dashed #2d8a4e;border-radius:20px;padding:50px 20px;text-align:center;color:#888;'><div style='font-size:50px;margin-bottom:15px;'>📷</div><div style='font-size:16px;font-weight:700;color:#1a5c2e;margin-bottom:8px;'>Upload a Leaf Photo</div><div style='font-size:13px;line-height:1.8;'>💡 <b>Tips:</b><br>• Good natural lighting<br>• Full leaf in the frame<br>• Focus on affected area<br>• Avoid blurry images</div></div>", unsafe_allow_html=True)
