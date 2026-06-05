@@ -9,7 +9,7 @@
 #   streamlit run streamlit_app.py
 #
 # FILES NEEDED IN SAME FOLDER:
-#   - BEST_MobileNetV2.h5
+#   - vgg16.h5
 #   - class_info.json
 # ============================================================
 
@@ -182,11 +182,11 @@ DISEASE_DB = {
 DEFAULT_INFO = {'crop':'Unknown','severity':'Unknown','color':'#95a5a6','pill':'pill-unknown','icon':'⚪','symptoms':['Consult an agricultural extension officer'],'treatment':['Seek advice from your local agricultural officer'],'description':'Disease information not available. Please consult an expert.'}
 
 MODEL_RESULTS = {
-    'CustomCNN'     : {'accuracy':15.39,'f1':0.0616,'precision':0.0476,'recall':0.1539,'type':'From Scratch'},
-    'VGG16'         : {'accuracy':78.57,'f1':0.7842,'precision':0.7897,'recall':0.7857,'type':'Transfer Learning'},
-    'ResNet50'      : {'accuracy':38.44,'f1':0.3700,'precision':0.4413,'recall':0.3844,'type':'Transfer Learning'},
-    'EfficientNetB0': {'accuracy':0.42, 'f1':0.0131,'precision':0.0071,'recall':0.0042,'type':'Transfer Learning'},
-    'MobileNetV2'   : {'accuracy':85.13,'f1':0.8499,'precision':0.8513,'recall':0.8513,'type':'Transfer Learning'},
+    'CustomCNN'     : {'accuracy':91.07,'f1':0.9110,'precision':0.9136,'recall':0.9107,'type':'From Scratch'},
+    'VGG16'         : {'accuracy':93.30,'f1':0.9327,'precision':0.9330,'recall':0.9330,'type':'Transfer Learning'},
+    'ResNet50'      : {'accuracy':64.32,'f1':0.9327,'precision':0.6599,'recall':0.6432,'type':'Transfer Learning'},
+    'EfficientNetB0': {'accuracy':13.46,'f1':0.0319,'precision':0.0181,'recall':0.1346,'type':'Transfer Learning'},
+    'MobileNetV2'   : {'accuracy':91.35,'f1':0.9133,'precision':0.9144,'recall':0.9133,'type':'Transfer Learning'},
 }
 
 @st.cache_resource(show_spinner="🌿 Loading model... please wait")
@@ -249,7 +249,7 @@ if model is None or class_info is None:
     st.error("⚠️ Model files not found! Place `BEST_VGG16.h5` and `class_info.json` in the same folder.")
     st.stop()
 else:
-    st.success(f"✅ MobileNetV2 model loaded — {len(CLASS_NAMES)} disease classes ready")
+    st.success(f"✅ VGG16 model loaded — {len(CLASS_NAMES)} disease classes ready")
 
 tab1, tab2, tab3 = st.tabs(["🔍 Predict Disease", "📊 Model Results", "📖 Disease Guide"])
 
@@ -321,17 +321,17 @@ with tab2:
     st.markdown("<div style='font-size:22px;font-weight:900;color:#1a1a1a;margin-bottom:5px;'>Model Performance Results</div>", unsafe_allow_html=True)
     st.markdown("<div style='font-size:14px;color:#888;margin-bottom:20px;'>Comparison of all 5 models trained on the Nigerian crop disease dataset.</div>", unsafe_allow_html=True)
 
-    st.markdown("<div class='section-title'>🏆 Best Model — MobileNetV2</div>", unsafe_allow_html=True)
-    st.markdown("<div class='metrics-row'><div class='metric-box'><div class='metric-val'>85.13%</div><div class='metric-lbl'>ACCURACY</div></div><div class='metric-box'><div class='metric-val'>0.8513</div><div class='metric-lbl'>PRECISION</div></div><div class='metric-box'><div class='metric-val'>0.8513</div><div class='metric-lbl'>RECALL</div></div><div class='metric-box'><div class='metric-val'>0.8499</div><div class='metric-lbl'>F1-SCORE</div></div></div>", unsafe_allow_html=True)
+    st.markdown("<div class='section-title'>🏆 Best Model — VGG16</div>", unsafe_allow_html=True)
+    st.markdown("<div class='metrics-row'><div class='metric-box'><div class='metric-val'>93.30%</div><div class='metric-lbl'>ACCURACY</div></div><div class='metric-box'><div class='metric-val'>0.9330</div><div class='metric-lbl'>PRECISION</div></div><div class='metric-box'><div class='metric-val'>0.9330</div><div class='metric-lbl'>RECALL</div></div><div class='metric-box'><div class='metric-val'>0.9327</div><div class='metric-lbl'>F1-SCORE</div></div></div>", unsafe_allow_html=True)
 
     st.markdown("<div class='section-title'>📋 All 5 Models Comparison</div>", unsafe_allow_html=True)
-    df = pd.DataFrame([{'Model':n,'Type':r['type'],'Accuracy':f"{r['accuracy']:.2f}%",'Precision':f"{r['precision']:.4f}",'Recall':f"{r['recall']:.4f}",'F1-Score':f"{r['f1']:.4f}",'Rank':'🥇 BEST' if n=='MobileNetV2' else ''} for n,r in MODEL_RESULTS.items()])
+    df = pd.DataFrame([{'Model':n,'Type':r['type'],'Accuracy':f"{r['accuracy']:.2f}%",'Precision':f"{r['precision']:.4f}",'Recall':f"{r['recall']:.4f}",'F1-Score':f"{r['f1']:.4f}",'Rank':'🥇 BEST' if n=='VGG16' else ''} for n,r in MODEL_RESULTS.items()])
     st.dataframe(df, use_container_width=True, hide_index=True)
 
     st.markdown("<div class='section-title'>📈 Accuracy Comparison Chart</div>", unsafe_allow_html=True)
     models = list(MODEL_RESULTS.keys())
     accs   = [MODEL_RESULTS[m]['accuracy'] for m in models]
-    colors = ['#2d8a4e' if m=='MobileNetV2' else '#a8d5b5' for m in models]
+    colors = ['#2d8a4e' if m=='VGG16' else '#a8d5b5' for m in models]
     fig, ax = plt.subplots(figsize=(10,5))
     fig.patch.set_facecolor('white'); ax.set_facecolor('#f9fdf9')
     bars = ax.bar(models, accs, color=colors, edgecolor='white', linewidth=1.5, width=0.5)
@@ -346,7 +346,7 @@ with tab2:
 
     st.markdown("<div class='section-title'>📂 Dataset Information</div>", unsafe_allow_html=True)
     c1,c2,c3,c4 = st.columns(4)
-    c1.metric("Total Images","~11,500"); c2.metric("Training","70%"); c3.metric("Validation","15%"); c4.metric("Test","15%")
+    c1.metric("Total Images","~19,409"); c2.metric("Training","70%"); c3.metric("Validation","15%"); c4.metric("Test","15%")
     st.markdown("<div class='card'><div style='font-size:14px;color:black;line-height:2;'>🌾 <b>Crops:</b> Cassava, Maize, Yam<br>🏷️ <b>Classes:</b> 15 disease categories<br>📐 <b>Image size:</b> 224 × 224 pixels<br>🔄 <b>Augmentation:</b> Rotation, flip, zoom, brightness<br>✂️ <b>Split:</b> 70% train | 15% val | 15% test (stratified)<br>⚖️ <b>Class weights:</b> Applied to handle class imbalance</div></div>", unsafe_allow_html=True)
 
 # TAB 3
